@@ -40,8 +40,11 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Add a marker in Sydney and move the camera
 
-        LatLng compiegne = new LatLng(49.4179, 2.8261);
-        mMap.addMarker(new MarkerOptions().position(compiegne).title("Marker in Compiegne"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(compiegne));
+        //PG1 entrée 49.400260, 2.800128
+
+        LatLng compiegne = new LatLng(49.400260, 2.800128);
+        mMap.addMarker(new MarkerOptions().position(compiegne).title("PG1 entrée"));
+        float zoom = 20.0f;
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(compiegne,zoom));
     }
 }
