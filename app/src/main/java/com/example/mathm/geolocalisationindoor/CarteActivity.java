@@ -1,5 +1,7 @@
 package com.example.mathm.geolocalisationindoor;
 
+import android.graphics.Color;
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,10 +11,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import android.graphics.Color;
+
+import java.util.ArrayList;
 
 public class CarteActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    public GoogleMap mMap;
+    public MarkerOptions options = new MarkerOptions();
+    public ArrayList<LatLng> latlong = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +52,34 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         //PG1 entrée 49.400260, 2.800128
 
         LatLng compiegne = new LatLng(49.400260, 2.800128);
+        LatLng compiegne2 = new LatLng(49.400300, 2.800135);
+        LatLng compiegne3 = new LatLng(49.400350, 2.800500);
+
+        latlong.add(compiegne);
+        latlong.add(compiegne2);
+        latlong.add(compiegne3);
+
+        for (LatLng point : latlong) {
+            options.position(point);
+            options.title("someTitle");
+            options.snippet("someDesc");
+
+            mMap.addMarker(options);
+        }
+
+        PolylineOptions rectOptions = new PolylineOptions()
+                .addAll(latlong)
+                .color(Color.BLUE);
+        Polyline polyline = mMap.addPolyline(rectOptions);
+
+        /*
         mMap.addMarker(new MarkerOptions().position(compiegne).title("PG1 entrée"));
+
+
+        */
+
         float zoom = 20.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(compiegne,zoom));
+
     }
 }

@@ -40,7 +40,9 @@
         </activity>
         <activity android:name=".CarteActivity" />
         <activity android:name=".CompassActivity" />
-        <activity android:name=".InitialisationMapActivity"></activity>
+        <activity android:name=".InitialisationMapActivity" />
+        <activity android:name=".SimplePedometerActivity">
+        </activity>
     </application>
 
 </manifest>

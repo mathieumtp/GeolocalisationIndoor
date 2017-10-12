@@ -31,5 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onPedometerButtonClicked(View v){
+
+        Intent intent = new Intent(MainActivity.this, SimplePedometerActivity.class);
+        startActivity(intent);
+
+    }
+
 
 }
