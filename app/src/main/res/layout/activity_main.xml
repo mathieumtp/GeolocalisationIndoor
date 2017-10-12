@@ -50,7 +50,7 @@
                 android:id="@+id/button2"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="50dp"
                 android:onClick="onMapButtonClicked"
                 android:text="Carte" />
@@ -59,21 +59,12 @@
                 android:id="@+id/button3"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginTop="50dp"
                 android:layout_weight="0.26"
                 android:onClick="onCompassButtonClicked"
                 android:text="Boussole" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="50dp"
-                android:layout_weight="0.26"
-                android:text="Podometre"
-                android:onClick="onPedometerButtonClicked" />
 
         </LinearLayout>
 

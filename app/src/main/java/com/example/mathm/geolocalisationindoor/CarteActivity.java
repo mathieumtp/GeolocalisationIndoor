@@ -1,6 +1,7 @@
 package com.example.mathm.geolocalisationindoor;
 
 import android.graphics.Color;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     public GoogleMap mMap;
     public MarkerOptions options = new MarkerOptions();
     public ArrayList<LatLng> latlong = new ArrayList<>();
+    private SimplePedometerActivity pedometerActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +33,20 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        pedometerActivity = new SimplePedometerActivity(CarteActivity.this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        pedometerActivity.sensorManager.registerListener(pedometerActivity, pedometerActivity.accel, SensorManager.SENSOR_DELAY_FASTEST);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        pedometerActivity.sensorManager.unregisterListener(pedometerActivity);
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
