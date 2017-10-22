@@ -24,6 +24,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +41,7 @@ public class SimplePedometerActivity implements SensorEventListener, StepListene
   private static final String TEXT_NUM_STEPS = "Number of Steps: ";
   private int numSteps;
   private CarteActivity m_activity;
+  private long lastTime=0;
 
   public SimplePedometerActivity(CarteActivity activity){
     m_activity = activity;
@@ -65,17 +68,23 @@ public class SimplePedometerActivity implements SensorEventListener, StepListene
 
     }
   }
+
+
   
   @Override
   public void step(long timeNs) {
     numSteps++;
-      if(m_activity.mMap != null)
+
+      if(m_activity.mMap != null && (lastTime - timeNs) < 1000000000)
       {
-          LatLng pointM = new LatLng(49.400350, (2.800500+ ((float)numSteps/10000)));
+
+          LatLng pointM = m_activity.calculNewPosition();
+
+          //LatLng pointM = new LatLng(49.400350, (2.800500+ ((float)numSteps/1000000)));
 
           m_activity.latlong.add(pointM);
 
-
+        /*
           for (LatLng point : m_activity.latlong) {
               m_activity.options.position(point);
               m_activity.options.title("NouveauMarker");
@@ -84,14 +93,18 @@ public class SimplePedometerActivity implements SensorEventListener, StepListene
               m_activity.mMap.addMarker(m_activity.options);
           }
 
+           */
+
+
           PolylineOptions rectOptions = new PolylineOptions()
                   .addAll(m_activity.latlong)
                   .color(Color.BLUE);
           Polyline polyline = m_activity.mMap.addPolyline(rectOptions);
 
-          float zoom = 20.0f;
+          float zoom = 25.0f;
           m_activity.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pointM,zoom));
 
+        lastTime = timeNs;
       }
 
   }

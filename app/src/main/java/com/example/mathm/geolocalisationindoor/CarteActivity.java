@@ -24,6 +24,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     public MarkerOptions options = new MarkerOptions();
     public ArrayList<LatLng> latlong = new ArrayList<>();
     private SimplePedometerActivity pedometerActivity;
+    public double value=2.528584;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,17 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    public LatLng calculNewPosition() {
+
+        float taillePas = 0.74f; //En m
+        float normeValue = (1/111111f)* taillePas; //111 111 metres = 1 degré latitude
+
+        value += normeValue;
+        return new LatLng(48.555930, (value));
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -64,18 +76,20 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         //PG1 entrée 49.400260, 2.800128
 
-        LatLng compiegne = new LatLng(49.400260, 2.800128);
-        LatLng compiegne2 = new LatLng(49.400300, 2.800135);
-        LatLng compiegne3 = new LatLng(49.400350, 2.800500);
+
+        LatLng compiegne = new LatLng(48.555930, 2.528584);
+        //LatLng compiegne = new LatLng(49.400260, 2.800128);
+        //LatLng compiegne2 = new LatLng(49.400300, 2.800135);
+        //LatLng compiegne3 = new LatLng(49.400350, 2.800500);
 
         latlong.add(compiegne);
-        latlong.add(compiegne2);
-        latlong.add(compiegne3);
+        //latlong.add(compiegne2);
+        //latlong.add(compiegne3);
 
         for (LatLng point : latlong) {
             options.position(point);
-            options.title("someTitle");
-            options.snippet("someDesc");
+            options.title("PG1");
+            options.snippet("Départ");
 
             mMap.addMarker(options);
         }
@@ -91,7 +105,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         */
 
-        float zoom = 20.0f;
+        float zoom = 22.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(compiegne,zoom));
 
     }
