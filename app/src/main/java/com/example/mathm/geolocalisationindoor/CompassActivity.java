@@ -16,12 +16,12 @@ import android.view.View;
  * Class which knows the azimuth of the smartphone(using accelerometer and magnetometer sensors).
  * @author Camille Quenin
  */
-public class CompassActivity extends Activity implements SensorEventListener {
+public class CompassActivity implements SensorEventListener {
 
-    private CompassView compassView; //TODO: once it is useless, the compassView must be deleted.
-    private SensorManager sensorManager;
-    private Sensor accelerometer;
-    private Sensor magnetometer;
+    //private CompassView compassView; //TODO: once it is useless, the compassView must be deleted.
+    public SensorManager sensorManager;
+    public Sensor accelerometer;
+    public Sensor magnetometer;
     private float[] accelerometerReading;
     private float[] magnetometerReading;
     private Float azimuth; // Angle between the device's current compass direction and magnetic north.
@@ -30,6 +30,7 @@ public class CompassActivity extends Activity implements SensorEventListener {
         return azimuth;
     }
 
+    /*
     public class CompassView extends View {
         Paint paint = new Paint();
         public CompassView(Context context) {
@@ -60,29 +61,15 @@ public class CompassActivity extends Activity implements SensorEventListener {
         }
     }
 
+*/
     /* Methods of Activity */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        compassView = new CompassView(this);
-        setContentView(compassView);
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+    public CompassActivity(CarteActivity activity){
+        sensorManager = (SensorManager)activity.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
-        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
 
     /* Methods of SensorEventListener */
     @Override
@@ -105,6 +92,6 @@ public class CompassActivity extends Activity implements SensorEventListener {
                 azimuth = orientation[0]; // orientation contains: azimuth, pitch and roll
             }
         }
-        compassView.invalidate();
+        //compassView.invalidate();
     }
 }
