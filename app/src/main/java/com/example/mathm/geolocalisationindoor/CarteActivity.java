@@ -18,13 +18,19 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 public class CarteActivity extends FragmentActivity implements OnMapReadyCallback {
 
     public GoogleMap mMap;
     public MarkerOptions options = new MarkerOptions();
     public ArrayList<LatLng> latlong = new ArrayList<>();
     private SimplePedometerActivity pedometerActivity;
+    private CompassActivity compassActivity;
     public double value=2.528584;
+    public double BaseLat= 49.400260;
+    public double BaseLong= 2.800128;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +41,22 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         pedometerActivity = new SimplePedometerActivity(CarteActivity.this);
+        compassActivity = new CompassActivity(CarteActivity.this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         pedometerActivity.sensorManager.registerListener(pedometerActivity, pedometerActivity.accel, SensorManager.SENSOR_DELAY_FASTEST);
+        compassActivity.sensorManager.registerListener(compassActivity, compassActivity.accelerometer, SensorManager.SENSOR_DELAY_UI);
+        compassActivity.sensorManager.registerListener(compassActivity, compassActivity.magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         pedometerActivity.sensorManager.unregisterListener(pedometerActivity);
+        compassActivity.sensorManager.unregisterListener(compassActivity);
     }
     /**
      * Manipulates the map once available.
@@ -62,9 +72,13 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         float taillePas = 0.74f; //En m
         float normeValue = (1/111111f)* taillePas; //111 111 metres = 1 degré latitude
+        float az = compassActivity.getAzimuth()*360/(2*3.14159f) - 90;
+        BaseLat += cos(Math.toRadians(az))* normeValue;
+        BaseLong += sin(Math.toRadians(az))* normeValue;
+
 
         value += normeValue;
-        return new LatLng(48.555930, (value));
+        return new LatLng(BaseLat, BaseLong);
     }
 
 
@@ -77,7 +91,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         //PG1 entrée 49.400260, 2.800128
 
 
-        LatLng compiegne = new LatLng(48.555930, 2.528584);
+        LatLng compiegne = new LatLng(49.400260,2.800128);
         //LatLng compiegne = new LatLng(49.400260, 2.800128);
         //LatLng compiegne2 = new LatLng(49.400300, 2.800135);
         //LatLng compiegne3 = new LatLng(49.400350, 2.800500);
