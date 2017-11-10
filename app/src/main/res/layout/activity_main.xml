@@ -7,12 +7,12 @@
     tools:context="com.example.mathm.geolocalisationindoor.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteY="-25dp"
-        tools:layout_editor_absoluteX="-24dp"
-        android:weightSum="1">
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textView2"
@@ -22,7 +22,7 @@
             android:fontFamily="cursive"
             android:text="Bienvenue sur l'application de Geolocalisation de MI12"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#e95a26"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -30,20 +30,19 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="43dp"
-            android:layout_weight="0.81"
             android:layout_marginTop="10dp"
+            android:layout_weight="0.81"
             app:srcCompat="@drawable/utcaccueil" />
-
 
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.07"
             android:orientation="horizontal"
             android:weightSum="1"
             tools:layout_editor_absoluteX="-24dp"
-            tools:layout_editor_absoluteY="-25dp"
-            android:layout_weight="0.07">
+            tools:layout_editor_absoluteY="-25dp">
 
 
             <Button
@@ -52,18 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="50dp"
+                android:layout_weight="0.59"
                 android:onClick="onMapButtonClicked"
                 android:text="Carte" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="50dp"
-                android:layout_weight="0.26"
-                android:onClick="onCompassButtonClicked"
-                android:text="Boussole" />
 
 
         </LinearLayout>
