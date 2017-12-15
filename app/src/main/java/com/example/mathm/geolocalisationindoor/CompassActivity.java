@@ -1,24 +1,17 @@
 package com.example.mathm.geolocalisationindoor;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.view.View;
 
 /**
- * Class which knows the azimuth of the smartphone(using accelerometer and magnetometer sensors).
+ * Class which determines the azimuth of the smartphone (using accelerometer and magnetometer sensors).
  * @author Camille Quenin
  */
 public class CompassActivity implements SensorEventListener {
 
-    //private CompassView compassView; //TODO: once it is useless, the compassView must be deleted.
     public SensorManager sensorManager;
     public Sensor accelerometer;
     public Sensor magnetometer;
@@ -30,17 +23,12 @@ public class CompassActivity implements SensorEventListener {
         return azimuth;
     }
 
-
-    /* Methods of Activity */
-
     public CompassActivity(CarteActivity activity){
         sensorManager = (SensorManager)activity.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
-
-    /* Methods of SensorEventListener */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
@@ -62,6 +50,5 @@ public class CompassActivity implements SensorEventListener {
                 azimuth = orientation[0]; // orientation contains: azimuth, pitch and roll
             }
         }
-        //compassView.invalidate();
     }
 }
