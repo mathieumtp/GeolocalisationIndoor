@@ -10,7 +10,7 @@ import android.hardware.SensorManager;
  * Class which determines the azimuth of the smartphone (using accelerometer and magnetometer sensors).
  * @author Camille Quenin
  */
-public class CompassActivity implements SensorEventListener {
+public class Compass implements SensorEventListener {
 
     public SensorManager sensorManager;
     public Sensor accelerometer;
@@ -23,7 +23,7 @@ public class CompassActivity implements SensorEventListener {
         return azimuth;
     }
 
-    public CompassActivity(CarteActivity activity){
+    public Compass(CarteActivity activity){
         sensorManager = (SensorManager)activity.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);

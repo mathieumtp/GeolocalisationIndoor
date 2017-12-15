@@ -3,7 +3,6 @@ package com.example.mathm.geolocalisationindoor;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -15,14 +14,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import android.graphics.Color;
 
 import java.util.ArrayList;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class CarteActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -30,7 +26,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     public MarkerOptions options = new MarkerOptions();
     public ArrayList<LatLng> latlong = new ArrayList<>();
     private SimplePedometerActivity pedometerActivity;
-    private CompassActivity compassActivity;
+    private Compass compass;
     public double value=2.528584;
     public double BaseLat= 49.400260;
     public double BaseLong= 2.800128;
@@ -50,22 +46,22 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         pedometerActivity = new SimplePedometerActivity(CarteActivity.this);
-        compassActivity = new CompassActivity(CarteActivity.this);
+        compass = new Compass(CarteActivity.this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         pedometerActivity.sensorManager.registerListener(pedometerActivity, pedometerActivity.accel, SensorManager.SENSOR_DELAY_FASTEST);
-        compassActivity.sensorManager.registerListener(compassActivity, compassActivity.accelerometer, SensorManager.SENSOR_DELAY_UI);
-        compassActivity.sensorManager.registerListener(compassActivity, compassActivity.magnetometer, SensorManager.SENSOR_DELAY_UI);
+        compass.sensorManager.registerListener(compass, compass.accelerometer, SensorManager.SENSOR_DELAY_UI);
+        compass.sensorManager.registerListener(compass, compass.magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         pedometerActivity.sensorManager.unregisterListener(pedometerActivity);
-        compassActivity.sensorManager.unregisterListener(compassActivity);
+        compass.sensorManager.unregisterListener(compass);
     }
     /**
      * Manipulates the map once available.
@@ -81,7 +77,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         float taillePas = 0.74f; //En m
         float normeValue = (1/111111f)* taillePas; //111 111 metres = 1 degré latitude
-        float az = compassActivity.getAzimuth()*360/(2*3.14159f);
+        float az = compass.getAzimuth()*360/(2*3.14159f);
         BaseLat += cos(Math.toRadians(az))* normeValue;
         BaseLong += sin(Math.toRadians(az))* normeValue;
 
