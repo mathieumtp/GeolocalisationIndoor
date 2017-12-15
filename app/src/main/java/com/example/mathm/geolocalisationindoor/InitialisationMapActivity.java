@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class InitialisationMapActivity extends AppCompatActivity {
 
     @Override
@@ -16,9 +20,47 @@ public class InitialisationMapActivity extends AppCompatActivity {
     public void onInitialisationButtonClicked(View v){
 
         Intent intent = new Intent(InitialisationMapActivity.this, CarteActivity.class);
+        intent.putExtra("lat", (float)49.400260);
+        intent.putExtra("long",(float)2.800128);
         startActivity(intent);
+
+        //LatLng debutCouloir = new LatLng(49.400260, 2.800128);
 
     }
 
+    public void onSecondButtonClicked(View v){
+
+        Intent intent = new Intent(InitialisationMapActivity.this, CarteActivity.class);
+        intent.putExtra("lat", (float)49.400383);
+        intent.putExtra("long",(float)2.800404);
+        startActivity(intent);
+
+        //LatLng debutCouloir = new LatLng(49.400383, 2.800404);
+
+    }
+
+    public void onThirdButtonClicked(View v){
+
+        Intent intent = new Intent(InitialisationMapActivity.this, CarteActivity.class);
+        intent.putExtra("lat", (float)49.400511);
+        intent.putExtra("long",(float)2.800589);
+        startActivity(intent);
+
+
+        //LatLng finCouloir = new LatLng(49.400511, 2.800589);
+
+
+    }
+
+    public void onFourthButtonClicked(View v){
+
+        Intent intent = new Intent(InitialisationMapActivity.this, CarteActivity.class);
+        intent.putExtra("lat", (float)49.400757);
+        intent.putExtra("long",(float)2.800352);
+        startActivity(intent);
+
+        //LatLng finMi12 = new LatLng(49.400757, 2.800352);
+    }
 
 }
+

@@ -24,9 +24,9 @@ public class CompassActivity implements SensorEventListener {
     public Sensor magnetometer;
     private float[] accelerometerReading;
     private float[] magnetometerReading;
-    private Float azimuth; // Angle between the device's current compass direction and magnetic north.
+    private float azimuth=0; // Angle between the device's current compass direction and magnetic north.
 
-    public Float getAzimuth(){
+    public float getAzimuth(){
         return azimuth;
     }
 
@@ -58,6 +58,7 @@ public class CompassActivity implements SensorEventListener {
             if (success) {
                 float orientation[] = new float[3];
                 SensorManager.getOrientation(rotationMatrix, orientation);
+                if(Math.abs(orientation[0] - azimuth) < 15)
                 azimuth = orientation[0]; // orientation contains: azimuth, pitch and roll
             }
         }

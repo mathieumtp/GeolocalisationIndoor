@@ -1,5 +1,6 @@
 package com.example.mathm.geolocalisationindoor;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.location.Location;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class CarteActivity extends FragmentActivity implements OnMapReadyCallback {
 
     public GoogleMap mMap;
@@ -29,8 +32,8 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     private SimplePedometerActivity pedometerActivity;
     private CompassActivity compassActivity;
     public double value=2.528584;
-    public double BaseLat= 49.400218;
-    public double BaseLong= 2.800132;
+    public double BaseLat= 49.400260;
+    public double BaseLong= 2.800128;
 
     //porte 49.400218, 2.800132
 
@@ -38,6 +41,10 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carte);
+        final Intent intent = getIntent();
+        BaseLat = intent.getFloatExtra("lat",0);
+        BaseLong = intent.getFloatExtra("long",0);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -94,14 +101,17 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         LatLng compiegne = new LatLng(BaseLat,BaseLong);
-        //LatLng compiegne = new LatLng(49.400260, 2.800128);
-        //LatLng compiegne2 = new LatLng(49.400300, 2.800135);
-        //LatLng compiegne3 = new LatLng(49.400350, 2.800500);
-
         latlong.add(compiegne);
-        //latlong.add(compiegne2);
-        //latlong.add(compiegne3);
+/*
+        LatLng debutCouloir = new LatLng(49.400383, 2.800404);
+        LatLng finCouloir = new LatLng(49.400511, 2.800589);
+        LatLng finMi12 = new LatLng(49.400757, 2.800352);
 
+
+        latlong.add(debutCouloir);
+        latlong.add(finCouloir);
+        latlong.add(finMi12);
+*/
         for (LatLng point : latlong) {
             options.position(point);
             options.title("PG1");

@@ -7,17 +7,19 @@
     tools:context="com.example.mathm.geolocalisationindoor.InitialisationMapActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteY="-25dp"
-        tools:layout_editor_absoluteX="-24dp">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-16dp"
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="405dp"
-            app:srcCompat="@drawable/initmap" />
+            android:layout_height="246dp"
+            app:srcCompat="@drawable/initmap"
+            android:layout_weight="0.77" />
 
         <TextView
             android:id="@+id/textView"
@@ -31,13 +33,38 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="J'y suis"
-        android:onClick="onInitialisationButtonClicked"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="431dp" />
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:onClick="onInitialisationButtonClicked"
+            android:text="Je suis au point de départ"
+            android:textSize="10sp"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="431dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:onClick="onSecondButtonClicked"
+            android:text="Je suis au début du couloir"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:onClick="onThirdButtonClicked"
+            android:text="Je suis à la fin du couloir"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:onClick="onFourthButtonClicked"
+            android:text="Je suis devant la salle"
+            android:textSize="10sp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
