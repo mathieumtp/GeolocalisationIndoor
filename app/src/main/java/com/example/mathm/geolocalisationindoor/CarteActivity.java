@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
@@ -27,11 +28,10 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     public ArrayList<LatLng> latlong = new ArrayList<>();
     private SimplePedometerActivity pedometerActivity;
     private Compass compass;
-    public double value=2.528584;
-    public double BaseLat= 49.400260;
-    public double BaseLong= 2.800128;
-
-    //porte 49.400218, 2.800132
+    public double BaseLat= 0;
+    public double BaseLong= 0;
+    private float zoom=22.0f;
+    private float taillePas = 0.74f; //En m
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +74,10 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
      */
 
     public LatLng calculNewPosition() {
-
-        float taillePas = 0.74f; //En m
         float normeValue = (1/111111f)* taillePas; //111 111 metres = 1 degré latitude
-        float az = compass.getAzimuth()*360/(2*3.14159f);
+        float az = (float) (compass.getAzimuth()*360/(2*PI));
         BaseLat += cos(Math.toRadians(az))* normeValue;
         BaseLong += sin(Math.toRadians(az))* normeValue;
-
-
-        value += normeValue;
         return new LatLng(BaseLat, BaseLong);
     }
 
@@ -90,45 +85,20 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-
-        //PG1 entrée 49.400260, 2.800128
-
-
         LatLng compiegne = new LatLng(BaseLat,BaseLong);
         latlong.add(compiegne);
-/*
-        LatLng debutCouloir = new LatLng(49.400383, 2.800404);
-        LatLng finCouloir = new LatLng(49.400511, 2.800589);
-        LatLng finMi12 = new LatLng(49.400757, 2.800352);
 
-
-        latlong.add(debutCouloir);
-        latlong.add(finCouloir);
-        latlong.add(finMi12);
-*/
         for (LatLng point : latlong) {
             options.position(point);
             options.title("PG1");
             options.snippet("Départ");
-
             mMap.addMarker(options);
         }
 
         PolylineOptions rectOptions = new PolylineOptions()
                 .addAll(latlong)
                 .color(Color.BLUE);
-        Polyline polyline = mMap.addPolyline(rectOptions);
-
-        /*
-        mMap.addMarker(new MarkerOptions().position(compiegne).title("PG1 entrée"));
-
-
-        */
-
-        float zoom = 22.0f;
+        mMap.addPolyline(rectOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(compiegne,zoom));
-
     }
 }
